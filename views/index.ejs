@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/javascripts/jquery-3.4.1.min.js"></script>
+  </head>
+  <body>
+    <input type="text" id="search" name="search"></input>
+    <br/><br/>
+    자동완성 요청
+    <ol id="result">
+    </ol>
+  </body>
+
+  <script>
+    $("#search").keyup(function(e) {
+      var base = "https://www.google.com/complete/search?q="
+      var data = $(this).val();
+      var argv = "&client=psy-ab&xssi=t&gs_ri=gws-wiz&hl=ko&authuser=0&psi=wcrSXdCnHdanoAT8-q_gCg.1574095554095&ei=wcrSXdCnHdanoAT8-q_gCg"
+      var url = base+data+"&cp="+data.length+argv
+
+      $.ajax({
+        url: "/users",
+        type: 'GET',
+        success: function(result) {
+          if(result) {
+            alert(result);
+            console.log('done!');
+          } else {
+            console.log('fail!');
+          }
+        }
+      })
+
+      $("#result").append("<li><a href='"+url+"'>"+url+"</a></li>");
+    });
+  </script>
+</html>
